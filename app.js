@@ -20,37 +20,32 @@ const app = firebase.initializeApp(firebaseConfig);
 // Reference to the storage service
 const storage = firebase.storage();
 
-
-
-
-
 const imageswal = storage.ref().child('TopWallpaper');
 const imagesdown = storage.ref().child('downloads');
 const wishlist = storage.ref().child('wishlist/Ajay');
 let imagesRef;
+
 localStorage.setItem('lastClickedValue', "on");
+
 // Get the current URL
 const currentUrl = window.location.href;
+
 if (currentUrl.includes('bookmarks.html')) {
   imagesRef = wishlist;
 } else if (currentUrl.includes('index.html')) {
-  // User is on index.html
   imagesRef = imageswal;
 } else {
-  // User is on a different page
   imagesRef = imagesdown;
 }
 
 // Get download URLs for all images in the folder
 imagesRef.listAll().then((result) => {
   result.items.forEach((imageRef) => {
-    // Create a placeholder loading image
     const loadingImg = document.createElement('img');
     loadingImg.className = 'topimg';
-    loadingImg.alt=imageRef.name;
+    loadingImg.alt = imageRef.name;
     loadingImg.src = './Images/load2.gif'; // Set the loading image source
 
-    // Append the loading image to the top container
     const link = document.createElement('a');
     link.href = "image.html"; // Set the href attribute of the link
     link.appendChild(loadingImg); // Append the loading image to the link
@@ -58,51 +53,41 @@ imagesRef.listAll().then((result) => {
 
     // Get the download URL for each image
     imageRef.getDownloadURL().then((url) => {
-      // Create an image element and set its source to the URL
       const img = document.createElement('img');
       img.className = 'topimg';
 
-      // Once the actual image is loaded, replace the loading image with it
       img.onload = function () {
-        // Replace the loading image with the actual image
         link.removeChild(loadingImg); // Remove the loading image
         link.appendChild(img); // Append the actual image to the link
       };
 
       img.src = url; // Set the source of the actual image
 
-      // Add click event listener to dynamically created images
       img.addEventListener('click', function () {
-        // Store the clicked image URL in localStorage
         localStorage.setItem('clickedImageUrl', url);
       });
     }).catch((error) => {
-      // Handle any errors
       console.error(error);
     });
   });
 }).catch((error) => {
-  // Handle any errors
   console.error(error);
 });
 
-var anchorTags = document.querySelectorAll('.fetchtag');
+const anchorTags = document.querySelectorAll('.fetchtag');
 anchorTags.forEach(function(anchorTag) {
   anchorTag.addEventListener('click', function(event) {
     // Prevent the default behavior of the anchor tag
     event.preventDefault();
-    
+
     // Retrieve the inner HTML value of the clicked p tag
-    var innerHTMLValue = this.querySelector('.fetch').textContent.trim();
-    
+    const innerHTMLValue = this.querySelector('.fetch').textContent.trim();
+
     // Store the value in local storage
     localStorage.setItem('lastClickedValue', innerHTMLValue);
     window.location.href = "catdisplay.html";
   });
 });
-
-
-
 
 const dp = document.getElementById('dp');
 const singupcancle = document.getElementById('singupcancle');
@@ -117,7 +102,7 @@ let homename = document.getElementById('homename');
 const displaydate = document.getElementById('date');
 const currentDate = new Date();
 // Options for formatting the date
-const options = { 
+const options = {
   month: 'long', // Display the full name of the month
   day: 'numeric', // Display the day of the month
   year: 'numeric' // Display the year
@@ -125,7 +110,6 @@ const options = {
 
 // Format the date
 const formattedDate = currentDate.toLocaleString('en-US', options);
-
 
 singinlink.addEventListener('click', function(event) {
   singup.style.display = 'none';
@@ -144,52 +128,45 @@ back.addEventListener('click', function(event) {
 });
 
 singupcancle.addEventListener('click', function(event) {
-  singup.style.display = 'none'; 
+  singup.style.display = 'none';
 });
 singincancle.addEventListener('click', function(event) {
-  singin.style.display = 'none'; 
+  singin.style.display = 'none';
 });
 
 const db = firebase.database(); // Initialize database directly from the Firebase app instance
-
-
 
 // Retrieve the value of event1 from localStorage
 let event1 = singup;
 // Set event1 to 'accountcontainer' if it's not already set
 if (localStorage.getItem('event1') === 'accountcontainer') {
   event1 = accountcontainer;
-} 
+}
 
 dp.addEventListener('click', function(event) {
   event1.style.display = 'flex';
   // Update profile display elements
 });
 
-
-
-
 function displayError(fieldId, errorMessage) {
-  var errorDiv = document.getElementById(fieldId);
+  const errorDiv = document.getElementById(fieldId);
   errorDiv.textContent = errorMessage;
   errorDiv.style.display = 'block';
   setTimeout(function() {
-    if(errorDiv != null){
-      errorDiv.style.display.style.display = "none";
-    }
+    errorDiv.style.display = "none";
   }, 3000);
 }
 
 // Function to clear error message for a specific field
 function clearError(fieldId) {
-  var errorDiv = document.getElementById(fieldId);
+  const errorDiv = document.getElementById(fieldId);
   errorDiv.textContent = '';
   errorDiv.style.display = 'none';
 }
 
 // Function to clear all error messages
 function clearErrors() {
-  var errorDivs = document.querySelectorAll('.error');
+  const errorDivs = document.querySelectorAll('.error');
   errorDivs.forEach(function(errorDiv) {
     errorDiv.textContent = '';
     errorDiv.style.display = 'none';
@@ -225,13 +202,13 @@ function changeToSVG(btn) {
 }
 
 // Function to revert the button's innerHTML back to the original text
-function revertToText( btn , value) {
+function revertToText(btn, value) {
   btn.innerHTML = value;
 }
 
 const singupbtn = document.getElementById('singupbtn');
 
-singupbtn.addEventListener('click', function(e){
+singupbtn.addEventListener('click', function(e) {
   e.preventDefault();
 
   // Get user input values
@@ -272,7 +249,7 @@ singupbtn.addEventListener('click', function(e){
 
   // Upload the image file to Firebase Storage
   const uploadTask = storageRef.put(profileImage);
-  const orginaltetx= singupbtn.innerHTML;
+  const orginaltetx = singupbtn.innerHTML;
   displayError('singupmsg', 'Signigup please wait.....');
 
   changeToSVG(singupbtn);
@@ -286,65 +263,61 @@ singupbtn.addEventListener('click', function(e){
       username: username,
       password: password,
       profileImageURL: downloadURL, // Save the image URL to the database
-      joined:formattedDate
+      joined: formattedDate
     }).then(() => {
       // Update UI after successful signup
-      singup.style.display='none';
-      singin.style.display='none';
+      singup.style.display = 'none';
+      singin.style.display = 'none';
       localStorage.setItem('event1', 'accountcontainer');
 
-      localStorage.setItem('storedUsername',username);
+      localStorage.setItem('storedUsername', username);
       // Update the profile image tag with the profile image URL
-       localStorage.setItem('storedProfileImageURL',downloadURL) ;
+      localStorage.setItem('storedProfileImageURL', downloadURL);
       localStorage.setItem('joineddate', formattedDate);
-    displayError('singupmsg', 'Signed up successfully.');
+      displayError('singupmsg', 'Signed up successfully.');
 
-location.reload();
+      location.reload();
     });
   }).catch((error) => {
     // Handle errors
-    revertToText(singupbtn,orginaltetx);
+    revertToText(singupbtn, orginaltetx);
     displayError('singupmsg', 'Error signing up.');
   });
 });
 
-
-
-
-
 // Event listener for signing in
 const singinbtn = document.getElementById('singinbtn');
-singinbtn.addEventListener('click', function(e){
+singinbtn.addEventListener('click', function(e) {
   e.preventDefault();
-  
+
   const username = document.getElementById('loginusername').value;
   const password = document.getElementById('loginpassword').value;
-  const orginaltetx= singinbtn.innerHTML;
+  const orginaltetx = singinbtn.innerHTML;
 
-  changeToSVG(singinbtn);  
+  changeToSVG(singinbtn);
   displayError('singinmsg', 'Signingin please wait.....');
   // Retrieve user details from Firebase
   db.ref('user/' + username).once('value').then((snapshot) => {
     const user = snapshot.val();
-    
+
     if (user && user.password === password) {
       // Sign in successful
       singup.style.display = 'none';
       singin.style.display = 'none';
-      
+
       // Update the value of event1 to 'accountcontainer' in localStorage
       localStorage.setItem('event1', 'accountcontainer');
       // Update localStorage with user details
       localStorage.setItem('storedUsername', user.username);
       localStorage.setItem('storedProfileImageURL', user.profileImageURL);
       localStorage.setItem('joineddate', user.joined);
-    displayError('singinmsg', 'Signed in successfully.');
-      
-location.reload();
+      displayError('singinmsg', 'Signed in successfully.');
+
+      location.reload();
 
     } else {
       // Incorrect username or password
-      revertToText(singinbtn,orginaltetx);
+      revertToText(singinbtn, orginaltetx);
       displayError('singinmsg', 'Incorrect username or password.');
 
     }
@@ -355,17 +328,15 @@ location.reload();
 
 // Get the logout button element
 const logoutButton = document.getElementById('logout');
-logoutButton.innerHTML='Logout';
+logoutButton.innerHTML = 'Logout';
 // Add click event listener to the logout button
 logoutButton.addEventListener('click', function() {
-  logoutButton.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="loadersvg"  style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><circle cx="12" cy="20" r="2"></circle><circle cx="12" cy="4" r="2"></circle><circle cx="6.343" cy="17.657" r="2"></circle><circle cx="17.657" cy="6.343" r="2"></circle><circle cx="4" cy="12" r="2.001"></circle><circle cx="20" cy="12" r="2"></circle><circle cx="6.343" cy="6.344" r="2"></circle><circle cx="17.657" cy="17.658" r="2"></circle></svg>';
+  logoutButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="loadersvg"  style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><circle cx="12" cy="20" r="2"></circle><circle cx="12" cy="4" r="2"></circle><circle cx="6.343" cy="17.657" r="2"></circle><circle cx="17.657" cy="6.343" r="2"></circle><circle cx="4" cy="12" r="2.001"></circle><circle cx="20" cy="12" r="2"></circle><circle cx="6.343" cy="6.344" r="2"></circle><circle cx="17.657" cy="17.658" r="2"></circle></svg>';
   // Remove all values from localStorage
   localStorage.clear();
   // Refresh the page
-location.reload();
+  location.reload();
 });
-
-
 
 displayname.innerHTML = localStorage.getItem('storedUsername') || 'Animania';
 dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';

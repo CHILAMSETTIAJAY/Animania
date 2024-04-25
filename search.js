@@ -95,5 +95,5 @@ loadImages();
   }
 });
 
-displayname.innerHTML = localStorage.getItem('storedUsername') || 'Animania';
-dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';
+document.getElementById('name').innerHTML = localStorage.getItem('storedUsername') || 'Animania';
+document.getElementById('dp').src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';

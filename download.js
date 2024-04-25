@@ -148,7 +148,7 @@ bookmarkIcon.addEventListener('click', function(e) {
     .then(url => {
       // Image is already bookmarked
       document.getElementById('image-display').style.opacity = '0.4';
-      showMessage('Already bookmarked');
+      showMessage('Bookmarked');
     })
     .catch(error => {
       if (error.code === 'storage/object-not-found') {
