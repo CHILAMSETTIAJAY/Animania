@@ -3,6 +3,12 @@ let flag = true;
 function loadImages() {
 document.getElementById('featured-title').innerHTML = localStorage.getItem('searchtext');
     let searchtext =localStorage.getItem('searchtext').toLowerCase();
+    let searchTerms = searchtext.split(" ");
+    
+    if (searchTerms.length >= 2) {
+        searchTerms = searchTerms.filter(term => !term.includes("wall"));
+    }
+    console.log(searchTerms)
 
     if (!firebase.apps.length) {
         // Your Firebase configuration
@@ -33,8 +39,12 @@ const imagesRef = storage.ref('AllWallpapers');
         // Get the name of the image and convert it to lowercase
         const imageName = imageRef.name.toLowerCase();
 
+            // Check if the image name contains all search terms
+            const match = searchTerms.some(term =>imageName.includes(term.slice(0, 4)) || imageName === term);
+
+
         // Check if the image name contains the search text
-        if (imageName.includes(searchtext)) {
+        if (match) {
             flag = false;
             // Create a placeholder loading image
             const loadingImg = document.createElement('img');
