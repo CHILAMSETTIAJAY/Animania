@@ -20,23 +20,12 @@ const app = firebase.initializeApp(firebaseConfig);
 // Reference to the storage service
 const storage = firebase.storage();
 
-const imageswal = storage.ref().child('TopWallpaper');
-const imagesdown = storage.ref().child('downloads');
-const wishlist = storage.ref().child('wishlist/Ajay');
-let imagesRef;
+const imagesRef = storage.ref().child('AllWallpapers');
 
 localStorage.setItem('lastClickedValue', "on");
 
 // Get the current URL
 const currentUrl = window.location.href;
-
-if (currentUrl.includes('bookmarks.html')) {
-  imagesRef = wishlist;
-} else if (currentUrl.includes('index.html')) {
-  imagesRef = imageswal;
-} else {
-  imagesRef = imagesdown;
-}
 
 // Get download URLs for all images in the folder
 imagesRef.listAll().then((result) => {
