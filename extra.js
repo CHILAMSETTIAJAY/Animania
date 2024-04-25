@@ -3,16 +3,6 @@ function reloadPage(event) {
   event.preventDefault(); // Prevent the default behavior (page reload)
   // Add any custom logic here if needed
 }
-function alertmsg(e , msg){
-  e.preventDefault();
-  document.getElementById("fullscreenAlert").style.display = "flex";
-  document.getElementById("alert-msg").innerHTML=msg;
-  // Close the alert after 3 seconds (adjust the time as needed)
-  setTimeout(function() {
-    document.getElementById("fullscreenAlert").style.display = "none";
-  }, 2000);
-}
-// Your Firebase configuration
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnyYghvHYwHY2Rbi5F1d6DuxVcnnAHEzI",
@@ -30,7 +20,7 @@ const app = firebase.initializeApp(firebaseConfig);
 // Reference to the storage service
 const storage = firebase.storage();
 
-// Reference to the folder where your images are stored
+
 const imageswal = storage.ref().child('TopWallpaper');
 const imagesdown = storage.ref().child('downloads');
 const wishlist = storage.ref().child('wishlist/Ajay');
@@ -174,83 +164,17 @@ dp.addEventListener('click', function(event) {
 });
 
 
-const singupbtn = document.getElementById('singupbtn');
-
-singupbtn.addEventListener('click', function(e){
-  e.preventDefault();
-
-});
 
 
-
-
-
-// Event listener for signing in
-const singinbtn = document.getElementById('singinbtn');
-singinbtn.addEventListener('click', function(e){
-  e.preventDefault();
-  
-  const username = document.getElementById('loginusername').value;
-  const password = document.getElementById('loginpassword').value;
-  
-  // Retrieve user details from Firebase
-  db.ref('user/' + username).once('value').then((snapshot) => {
-    const user = snapshot.val();
-    
-    if (user && user.password === password) {
-      // Sign in successful
-      singup.style.display = 'none';
-      singin.style.display = 'none';
-      
-      // Update the value of event1 to 'accountcontainer' in localStorage
-      localStorage.setItem('event1', 'accountcontainer');
-      // Update localStorage with user details
-      localStorage.setItem('storedUsername', user.username);
-      localStorage.setItem('storedProfileImageURL', user.profileImageURL);
-      localStorage.setItem('joineddate', user.joined);
-      
-      alertmsg(e, 'Signed in successfully');
-      // Refresh the page
-location.reload();
-
-    } else {
-      // Incorrect username or password
-      alertmsg(e, 'Incorrect username or password');
-    }
-  }).catch((error) => {
-    alertmsg(e, 'Error signing in');
-  });
-});
-
-// Get the logout button element
-const logoutButton = document.getElementById('logout');
-
-// Add click event listener to the logout button
-logoutButton.addEventListener('click', function() {
-  // Remove all values from localStorage
-  localStorage.clear();
-  // Refresh the page
-location.reload();
-});
-
-
-
-displayname.innerHTML = localStorage.getItem('storedUsername') || 'Animania';
-dp.src = localStorage.getItem('storedProfileImageURL') || './Images/Dp.jpg';
-
-
-
-
-
-
-
-
-
-// Function to display error message below the field
 function displayError(fieldId, errorMessage) {
   var errorDiv = document.getElementById(fieldId);
   errorDiv.textContent = errorMessage;
   errorDiv.style.display = 'block';
+  setTimeout(function() {
+    if(errorDiv != null){
+      errorDiv.style.display.style.display = "none";
+    }
+  }, 3000);
 }
 
 // Function to clear error message for a specific field
@@ -269,69 +193,204 @@ function clearErrors() {
   });
 }
 
-// Function to validate if a string contains consecutive spaces
-function containsConsecutiveSpaces(str) {
-  return /\s{2,}/.test(str);
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+
+usernameInput.addEventListener('input', function() {
+  const username = usernameInput.value;
+  if (username.length >= 4) {
+    clearError('usernameError');
+  }
+});
+
+// Event listener for password input
+passwordInput.addEventListener('input', function() {
+  const password = passwordInput.value;
+  if (password.length >= 8 && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)) {
+    clearError('passwordError');
+  }
+});
+
+// Function to check if username already exists in storage
+async function checkUsernameExists(username) {
+  const snapshot = await db.ref('user/' + username).once('value');
+  return snapshot.exists();
 }
 
-singupbtn.addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent form submission
-console.log('check');
-  // Get form inputs
-  var username = document.getElementById('username').value.trim();
-  var password = document.getElementById('password').value.trim();
-  var fileInput = document.getElementById('fileInput').files[0];
+function changeToSVG(btn) {
+  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="loadersvg"  style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><circle cx="12" cy="20" r="2"></circle><circle cx="12" cy="4" r="2"></circle><circle cx="6.343" cy="17.657" r="2"></circle><circle cx="17.657" cy="6.343" r="2"></circle><circle cx="4" cy="12" r="2.001"></circle><circle cx="20" cy="12" r="2"></circle><circle cx="6.343" cy="6.344" r="2"></circle><circle cx="17.657" cy="17.658" r="2"></circle></svg>'; // Replace '...' with your SVG content
+}
 
-  // Set flag to track validation errors
-  var hasErrors = false;
+// Function to revert the button's innerHTML back to the original text
+function revertToText( btn , value) {
+  btn.innerHTML = value;
+}
 
-  // Clear previous errors
-  clearErrors();
+const singupbtn = document.getElementById('singupbtn');
 
-  // Validate if any field is empty
-  if (!username || !password || !fileInput) {
-    displayError('formError', 'Please fill in all fields.');
-    hasErrors = true;
-  }
+singupbtn.addEventListener('click', function(e){
+  e.preventDefault();
 
-  // Validate username length
+  // Get user input values
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const profileImage = document.getElementById('fileInput').files[0]; // Get the selected image file
+
   if (username.length < 4) {
     displayError('usernameError', 'Username must be at least 4 characters long.');
-    hasErrors = true;
+    return;
   }
-
-  // Validate consecutive spaces in username
-  if (containsConsecutiveSpaces(username)) {
-    displayError('usernameError', 'Username cannot contain consecutive spaces.');
-    hasErrors = true;
+  checkUsernameExists(username).then((exists) => {
+    if (exists) {
+      displayError('usernameError', 'Username already in use. Please choose a different one.');
+      return;
+    }
+  });
+  if (profileImage == null) {
+    displayError('fileInputError', 'Upload Image for profilr pic');
+    return;
   }
-
-  // Validate password length and complexity
-  var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/;
-  if (password.length < 8 || !passwordRegex.test(password)) {
+  if (password.length < 8 || !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)) {
     displayError('passwordError', 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.');
-    hasErrors = true;
+    return;
   }
 
-  // Validate file upload
-  if (!fileInput) {
-    displayError('fileInputError', 'Please select a profile image.');
-    hasErrors = true;
+  if (!/^\S*(?=\S{2})\S*$/.test(username)) {
+    displayError('usernameError', 'Username cannot contain consecutive spaces.');
+    return;
+  }
+  if (!/^\S*(?=\S{2})\S*$/.test(password)) {
+    displayError('passwordError', 'Username cannot contain consecutive spaces.');
+    return;
   }
 
-  if (!hasErrors) {
-    // Check username uniqueness
-    db.ref('user/' + username).once('value')
-      .then(function(querySnapshot) {
-        if (!querySnapshot.empty) {
-          displayError('usernameError', 'Username is already taken. Please choose a different username.');
-        } else {
-          // Submit the form if no errors
-          document.getElementById('signupform').submit();
-        }
-      })
-      .catch(function(error) {
-        console.error('Error checking username uniqueness:', error);
-      });
+  // Create a storage reference for the image
+  const storageRef = firebase.storage().ref('profile_images/' + username + '_' + profileImage);
+
+  // Upload the image file to Firebase Storage
+  const uploadTask = storageRef.put(profileImage);
+  const orginaltetx= singupbtn.innerHTML;
+  displayError('singupmsg', 'Signigup please wait.....');
+
+  changeToSVG(singupbtn);
+  // Wait for the image upload to complete
+  uploadTask.then((snapshot) => {
+    // Get the download URL for the uploaded image
+    return snapshot.ref.getDownloadURL();
+  }).then((downloadURL) => {
+    // Save user information and image URL to the database
+    return db.ref('user/' + username).set({
+      username: username,
+      password: password,
+      profileImageURL: downloadURL, // Save the image URL to the database
+      joined:formattedDate
+    }).then(() => {
+      // Update UI after successful signup
+      singup.style.display='none';
+      singin.style.display='none';
+      localStorage.setItem('event1', 'accountcontainer');
+
+      localStorage.setItem('storedUsername',username);
+      // Update the profile image tag with the profile image URL
+       localStorage.setItem('storedProfileImageURL',downloadURL) ;
+      localStorage.setItem('joineddate', formattedDate);
+    displayError('singupmsg', 'Signed up successfully.');
+
+location.reload();
+    });
+  }).catch((error) => {
+    // Handle errors
+    revertToText(singupbtn,orginaltetx);
+    displayError('singupmsg', 'Error signing up.');
+  });
+});
+
+
+
+
+
+// Event listener for signing in
+const singinbtn = document.getElementById('singinbtn');
+singinbtn.addEventListener('click', function(e){
+  e.preventDefault();
+  
+  const username = document.getElementById('loginusername').value;
+  const password = document.getElementById('loginpassword').value;
+  const orginaltetx= singinbtn.innerHTML;
+
+  changeToSVG(singinbtn);  
+  displayError('singinmsg', 'Signingin please wait.....');
+  // Retrieve user details from Firebase
+  db.ref('user/' + username).once('value').then((snapshot) => {
+    const user = snapshot.val();
+    
+    if (user && user.password === password) {
+      // Sign in successful
+      singup.style.display = 'none';
+      singin.style.display = 'none';
+      
+      // Update the value of event1 to 'accountcontainer' in localStorage
+      localStorage.setItem('event1', 'accountcontainer');
+      // Update localStorage with user details
+      localStorage.setItem('storedUsername', user.username);
+      localStorage.setItem('storedProfileImageURL', user.profileImageURL);
+      localStorage.setItem('joineddate', user.joined);
+    displayError('singinmsg', 'Signed in successfully.');
+      
+location.reload();
+
+    } else {
+      // Incorrect username or password
+      revertToText(singinbtn,orginaltetx);
+      displayError('singinmsg', 'Incorrect username or password.');
+
+    }
+  }).catch((error) => {
+    displayError('singinpmsg', 'Error signing in.');
+  });
+});
+
+// Get the logout button element
+const logoutButton = document.getElementById('logout');
+logoutButton.innerHTML='Logout';
+// Add click event listener to the logout button
+logoutButton.addEventListener('click', function() {
+  logoutButton.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" class="loadersvg"  style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><circle cx="12" cy="20" r="2"></circle><circle cx="12" cy="4" r="2"></circle><circle cx="6.343" cy="17.657" r="2"></circle><circle cx="17.657" cy="6.343" r="2"></circle><circle cx="4" cy="12" r="2.001"></circle><circle cx="20" cy="12" r="2"></circle><circle cx="6.343" cy="6.344" r="2"></circle><circle cx="17.657" cy="17.658" r="2"></circle></svg>';
+  // Remove all values from localStorage
+  localStorage.clear();
+  // Refresh the page
+location.reload();
+});
+
+
+
+displayname.innerHTML = localStorage.getItem('storedUsername') || 'Animania';
+dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';
+
+document.getElementById('Contact').addEventListener('click', function(event) {
+  event.preventDefault();
+
+  // Define the email address and subject
+  const emailAddress = 'animania@example.com';
+  const subject = 'Inquiry';
+
+  // Construct the mailto URL
+  const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}`;
+
+  // Open the user's default email client
+  window.location.href = mailtoUrl;
+});
+
+const searchtext = document.getElementById('searchtext');
+
+searchtext.addEventListener('keypress', function(event) {
+  // Check if the Enter key was pressed (key code 13)
+  if (event.key === 'Enter') {
+    const searchTextValue = searchtext.value;
+    localStorage.setItem('searchtext', searchTextValue); // Saving the search text in local storage
+
+    if (searchTextValue.trim() !== '') {
+      window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
+    }
   }
 });
