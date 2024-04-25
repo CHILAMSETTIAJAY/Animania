@@ -1,5 +1,5 @@
 
-
+let flag = true;
 function loadImages() {
 document.getElementById('featured-title').innerHTML = localStorage.getItem('searchtext');
     let searchtext =localStorage.getItem('searchtext').toLowerCase();
@@ -35,6 +35,7 @@ const imagesRef = storage.ref('AllWallpapers');
 
         // Check if the image name contains the search text
         if (imageName.includes(searchtext)) {
+            flag = false;
             // Create a placeholder loading image
             const loadingImg = document.createElement('img');
             loadingImg.className = 'topimg';
@@ -73,6 +74,10 @@ const imagesRef = storage.ref('AllWallpapers');
             });
         }
     });
+    if(flag){
+        displayError('SearchError', 'No matches found for search.');
+    
+      }
 }).catch((error) => {
     // Handle any errors
     console.error(error);
@@ -121,7 +126,22 @@ document.getElementById("searchicon").addEventListener("click", function() {
         }
     };
 });
+function displayError(fieldId, errorMessage) {
+    const errorDiv = document.getElementById(fieldId);
+    errorDiv.textContent = errorMessage;
+    errorDiv.style.display = 'block';
+    setTimeout(function() {
+      errorDiv.style.display = "none";
+    }, 3000);
+  }
 
-  
+
+
+ const picsearch = document.getElementById('picsearch');
+ picsearch.addEventListener('click',function(){
+    displayError('SearchError', 'We are working on this future');
+
+ })
+
 document.getElementById('name').innerHTML = localStorage.getItem('storedUsername') || 'Animania';
 document.getElementById('dp').src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';
