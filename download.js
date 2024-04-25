@@ -64,7 +64,7 @@ function fetchFile(url) {
       // Create a temporary link element
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = 'HrWallpapersimage.jpg'; // Set the filename for download
+      link.download = 'AnimaniaWallpapers.jpg'; // Set the filename for download
       // Trigger click on the link
       link.click();
       // Cleanup
@@ -191,6 +191,8 @@ bookmarkRemove.addEventListener('click', function() {
       showMessage('Removed from bookmarks');
       window.location.href = 'catdisplay.html';
       localStorage.setItem('clickedImageUrl','./Images/load2.gif');
+      window.location.href = 'index.html';
+
     })
     .catch((error) => {
       // An error occurred while deleting the image
