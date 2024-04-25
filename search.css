@@ -54,16 +54,8 @@
     align-items: center;
     justify-content: center;
   }
-.error{
-  width: 85%;
-  height: fit-content;
-}
 
 .header{
   padding-top: 0px !important;
 }
 
-.search-container{
-  display: flex;
-  flex-direction: column;
-}

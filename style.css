@@ -514,3 +514,11 @@ top: -2px;
     width: 50px;
   }
 }
+.search-container{
+  display: flex;
+  flex-direction: column;
+}
+.error{
+  width: 85%;
+  height: fit-content;
+}

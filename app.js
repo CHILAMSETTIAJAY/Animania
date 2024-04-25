@@ -366,3 +366,27 @@ document.getElementById("searchicon").addEventListener("click", function() {
     window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
   }
 });
+
+const picsearch = document.getElementById('picsearch');
+picsearch.addEventListener('click',function(){
+   displayError('SearchError', 'We are working on this future');
+
+})
+
+document.getElementById("voiceicon").addEventListener("click", function() {
+  var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+  
+  recognition.lang = 'en-US';
+  recognition.start();
+
+  recognition.onresult = function(event) {
+      searchtext2.value = event.results[0][0].transcript;
+      recognition.stop();
+      const searchTextValue = searchtext2.value;
+      localStorage.setItem('searchtext', searchTextValue); // Saving the search text in local storage
+
+      if (searchTextValue.trim() !== '') {
+        window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
+      }
+  };
+});
