@@ -95,5 +95,33 @@ loadImages();
   }
 });
 
+document.getElementById("searchicon").addEventListener("click", function() {
+    const searchTextValue = searchtext2.value;
+    localStorage.setItem('searchtext', searchTextValue); // Saving the search text in local storage
+  
+    if (searchTextValue.trim() !== '') {
+      window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
+    }
+  });
+
+  document.getElementById("voiceicon").addEventListener("click", function() {
+    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+    
+    recognition.lang = 'en-US';
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        searchtext2.value = event.results[0][0].transcript;
+        recognition.stop();
+        const searchTextValue = searchtext2.value;
+        localStorage.setItem('searchtext', searchTextValue); // Saving the search text in local storage
+  
+        if (searchTextValue.trim() !== '') {
+          window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
+        }
+    };
+});
+
+  
 document.getElementById('name').innerHTML = localStorage.getItem('storedUsername') || 'Animania';
 document.getElementById('dp').src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';

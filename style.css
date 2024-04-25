@@ -508,3 +508,9 @@ top: -2px;
   background-image: linear-gradient(to right, #5e42a6, #b74e91);
 }
 
+
+@media screen and (min-width: 480px){
+  .sharingan{
+    width: 50px;
+  }
+}

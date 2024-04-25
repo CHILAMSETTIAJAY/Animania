@@ -357,3 +357,12 @@ searchtext.addEventListener('keypress', function(event) {
     }
   }
 });
+
+document.getElementById("searchicon").addEventListener("click", function() {
+  const searchTextValue = searchtext.value;
+  localStorage.setItem('searchtext', searchTextValue); // Saving the search text in local storage
+
+  if (searchTextValue.trim() !== '') {
+    window.location.href = `search.html?search=${encodeURIComponent(searchTextValue)}`;
+  }
+});
