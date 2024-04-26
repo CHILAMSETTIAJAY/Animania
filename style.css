@@ -11,15 +11,21 @@
 body{
   width: 100vw;
   height: auto;
-  background-color: #131521 !important;
+  background-color: #fafbfed1 !important;
   overflow-x: hidden !important;
+  color: black !important;
 }
 a{
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.blue{
+  width: 100vw;
+  height: auto;
+  background-color: #44444c;
 }
 .accountcontainer{
   position: fixed;
@@ -55,9 +61,6 @@ a{
     border-radius: 50px;
     object-fit: cover;
     aspect-ratio: 1/1;
-}
-.menu{
-  gap: 10px;
 }
 .menuitem{
   font-size: 13px;
@@ -164,7 +167,7 @@ form h3{
   align-items: center;
   justify-content: space-between;
   gap: 5px;
-  padding: 30px 0px;
+  padding: 30px 0px 20px 0px;
 }
 .nav{
   max-width: 550px;
@@ -295,8 +298,10 @@ font-weight: 300;
   width: 95%;
   font-size: 0.9rem;
   justify-content: start;
-  padding: 15px 0px 12px 20px;
+  padding: 12px 0px 12px 20px;
   border-bottom: none !important;
+  color: #000000;
+  font-weight: 600;
 }
 .containerr{
   flex-direction: column;
@@ -314,14 +319,17 @@ font-weight: 300;
 }
 .featured img{
   max-width: 170px;
-  opacity: 0.4;
+  opacity:1;
 }
+
 .featured-text{
   position: absolute;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   bottom: 15px;
-  left: 15px;
-  color: white;
+  left: 0px;
+  color: rgb(255, 255, 255);
+  background-color: #4caf50;
+  padding: 3px 10px;
 }
 .featured-container{
   max-width: 100%;
@@ -415,6 +423,7 @@ font-weight: 300;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0px 0px 15px 0px;
 }
 .searchcon{
   width: 90%;
@@ -521,4 +530,42 @@ top: -2px;
 .error{
   width: 85%;
   height: fit-content;
+}
+
+.mobile-menu{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 10vh;
+  width: 100vw;
+  display: none;
+  align-items:end;
+  justify-content: center;
+}
+.mobilemenu{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #ffffff;
+  padding: 3px 0px;
+}
+.mobilemenu-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0px;
+  font-size: 0.7rem;
+}
+.mobilemenu-item:hover {
+color: #4caf50 ;
+}
+.mobilemenu-item:hover svg{
+  fill: #4caf50 !important;
+
+}
+svg:hover{
+  fill: #4caf50;
 }

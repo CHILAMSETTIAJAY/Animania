@@ -8,38 +8,35 @@
   <link rel="stylesheet" href="profile.css">
 </head>
 <body id="body">
+  <section class="mobile-menu" id="mobile-menu">
+    <div class="mobilemenu">
+     <a href="index.html" id="back">
+      <div class="mobilemenu-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12.71 2.29a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42A1 1 0 0 0 3 13h1v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7h1a1 1 0 0 0 1-1 1 1 0 0 0-.29-.71zM6 20v-9.59l6-6 6 6V20z"></path></svg>
+        <span>Home</span>
+      </div>
+     </a>
+      <div class="mobilemenu-item fetchtag" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;" class="C"><path d="M12 1.993C6.486 1.994 2 6.48 2 11.994c0 5.513 4.486 9.999 10 10 5.514 0 10-4.486 10-10s-4.485-10-10-10.001zm0 18.001c-4.411-.001-8-3.59-8-8 0-4.411 3.589-8 8-8.001 4.411.001 8 3.59 8 8.001s-3.589 8-8 8z"></path><path d="M13 8h-2v4H7.991l4.005 4.005L16 12h-3z"></path></svg>
+        <span class="fetch">Downloads</span>
+      </div>
+      <div class="mobilemenu-item fetchtag">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="m8 16 5.991-2L16 8l-6 2z"></path></svg>
+        <span class="fetch">Explore</span>
+      </div>
+
+      <div class="mobilemenu-item fetchtag">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M14 5H6c-1.103 0-2 .897-2 2v16l6-3.601L16 23V7c0-1.103-.897-2-2-2zm0 14.467-4-2.399-4 2.399V7h8v12.467z"></path><path d="M18 1h-8c-1.103 0-2 .897-2 2h8c1.103 0 2 .897 2 2v10.443l2 2.489V3c0-1.103-.897-2-2-2z"></path></svg>
+        <span class="fetch">Bookmarks</span>
+      </div>
+    </div>
+  </section>
   <section>
     <div class="fullscreen-alert" id="fullscreenAlert">
   <div class="alert-box">
     <h2 id="alert-msg">Signed in successfully</h2>
   </div>
 </div>
-  </section>
-  <section class="accountcontainer" id="accountcontainer">
-    <div class="account">
-      <p class="logout" id="logout">
-        <span class="logouttext">Logout</span>
-      </p>
-      <p class="back" id="back">
-        <span class="backtext">Back</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><path d="M19.002 3h-14c-1.103 0-2 .897-2 2v4h2V5h14v14h-14v-4h-2v4c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.898-2-2-2z"></path><path d="m11 16 5-4-5-4v3.001H3v2h8z"></path></svg>
-      </p>
-      <main class="main">
-        <aside class="sidebar">
-          <nav class="nav">
-            <ul>
-              <li><a href="about.html">About</a></li>
-              <li><a href="#" class="fetchtag">
-                <span class="fetch">Downloads</span></a></li>
-              <li><a href="#" class="fetchtag">
-                <span class="fetch">Bookmarks</span></a></li>
-              <li><a href="#" id="Contact">Contact us</a></li>
-            </ul>
-          </nav>
-        </aside>
-      </main>
-    </div>
-
   </section>
   <section class="singup" id="singup">
     <form id="singupform">
@@ -83,27 +80,31 @@
   </form>
   </section>
   
-  <div class="nav-bar">
-    <div class="user">
-      <div class="userinfo">
-      <img src="./Images/my4dp.png" alt="" class="dp" id="dp">
-      <p class="user-name" id="name">Animania</p>
+  <section class="blue">
+    <div class="nav-bar">
+      <div class="user">
+        <div class="userinfo">
+        <img src="./Images/my2dp.jpg" alt="" class="dp" id="dp">
+        <p class="user-name" id="name">Login</p>
+        </div>
+        <p class="logout" id="logout">
+          <span class="logouttext">Logout</span>
+        </p>
       </div>
     </div>
-  </div>
-  <div class="search-container">
-    <div class="searchcon">
-      <img src="./Images/naruto.gif" alt="" class="sharingan">
-      <input type="text" class="searchbar" placeholder="searchbar" id="searchtext">
-      <div class="btns-search">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" id="picsearch" ><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" id="voiceicon" ><path d="M16 12V6c0-2.217-1.785-4.021-3.979-4.021a.933.933 0 0 0-.209.025A4.006 4.006 0 0 0 8 6v6c0 2.206 1.794 4 4 4s4-1.794 4-4zm-6 0V6c0-1.103.897-2 2-2a.89.89 0 0 0 .163-.015C13.188 4.06 14 4.935 14 6v6c0 1.103-.897 2-2 2s-2-.897-2-2z"></path><path d="M6 12H4c0 4.072 3.061 7.436 7 7.931V22h2v-2.069c3.939-.495 7-3.858 7-7.931h-2c0 3.309-2.691 6-6 6s-6-2.691-6-6z"></path></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"  id="searchicon"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path><path d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"></path></svg>
+    <div class="search-container">
+      <div class="searchcon">
+        <img src="./Images/naruto.gif" alt="" class="sharingan">
+        <input type="text" class="searchbar" placeholder="searchbar" id="searchtext">
+        <div class="btns-search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" id="picsearch" ><path d="M4 5h13v7h2V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-2H4V5z"></path><path d="m8 11-3 4h11l-4-6-3 4z"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" id="voiceicon" ><path d="M16 12V6c0-2.217-1.785-4.021-3.979-4.021a.933.933 0 0 0-.209.025A4.006 4.006 0 0 0 8 6v6c0 2.206 1.794 4 4 4s4-1.794 4-4zm-6 0V6c0-1.103.897-2 2-2a.89.89 0 0 0 .163-.015C13.188 4.06 14 4.935 14 6v6c0 1.103-.897 2-2 2s-2-.897-2-2z"></path><path d="M6 12H4c0 4.072 3.061 7.436 7 7.931V22h2v-2.069c3.939-.495 7-3.858 7-7.931h-2c0 3.309-2.691 6-6 6s-6-2.691-6-6z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"  id="searchicon"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path><path d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"></path></svg>
+        </div>
       </div>
+    <div id="SearchError" class="error"></div>
     </div>
-  <div id="SearchError" class="error"></div>
-
-  </div>
+  </section>
   <div class="featured container">
     <p class="subhead featured-title ">Categories</p>
     <div class="featured-container">

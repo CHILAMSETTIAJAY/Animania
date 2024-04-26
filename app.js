@@ -390,9 +390,13 @@ logoutButton.addEventListener('click', function() {
   location.reload();
 });
 
-displayname.innerHTML = localStorage.getItem('storedUsername') || 'Animania';
-dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my4dp.png';
+displayname.innerHTML = localStorage.getItem('storedUsername') || 'Login';
+dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my2dp.jpg';
+if(localStorage.getItem('storedUsername') != null) {
+  document.getElementById('logout').style.display = 'flex';
+  document.getElementById('mobile-menu').style.display = 'flex';
 
+}
 document.getElementById('Contact').addEventListener('click', function(event) {
   event.preventDefault();
 

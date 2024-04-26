@@ -84,17 +84,16 @@ body{
 }
 
 .logout{
-    width: 43vw;
+    width: 23vw;
     border: 1px solid #4caf50;
-    position: fixed;
-    bottom: 12vh;
-    left: 5vw;
+    border-radius: 15px 0px 15px 0px;
     color: #ffffff !important;
     z-index: 111111;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 5px 5px;
     gap: 10px;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 400;
 }
