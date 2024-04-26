@@ -198,81 +198,144 @@ function revertToText(btn, value) {
 const singupbtn = document.getElementById('singupbtn');
 
 singupbtn.addEventListener('click', function(e) {
-  e.preventDefault();
+  e.preventDefault(); // Prevent default form submission
 
   // Get user input values
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   const profileImage = document.getElementById('fileInput').files[0]; // Get the selected image file
 
+  let valid = true; // Flag to track if form submission should proceed
+
+  // Reset any previous error messages
+  clearErrors();
+
+  // Perform username validation
   if (username.length < 4) {
     displayError('usernameError', 'Username must be at least 4 characters long.');
-    return;
-  }
-  checkUsernameExists(username).then((exists) => {
-    if (exists) {
-      displayError('usernameError', 'Username already in use. Please choose a different one.');
-      return;
-    }
-  });
-  if (profileImage == null) {
-    displayError('fileInputError', 'Upload Image for profilr pic');
-    return;
-  }
-  if (password.length < 8 || !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)) {
-    displayError('passwordError', 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.');
-    return;
+    valid = false;
   }
 
+  // Perform password validation
+  if (password.length < 8 || !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)) {
+    displayError('passwordError', 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+    valid = false;
+  }
+
+  // Perform username and password consecutive spaces validation
   if (!/^\S*(?=\S{2})\S*$/.test(username)) {
     displayError('usernameError', 'Username cannot contain consecutive spaces.');
-    return;
+    valid = false;
   }
   if (!/^\S*(?=\S{2})\S*$/.test(password)) {
-    displayError('passwordError', 'Username cannot contain consecutive spaces.');
-    return;
+    displayError('passwordError', 'Password cannot contain consecutive spaces.');
+    valid = false;
   }
 
+  // Perform profile image presence validation
+  if (!profileImage) {
+    displayError('fileInputError', 'Upload an image for profile picture.');
+    valid = false;
+  }
+
+  if (valid) {
+    // Perform username existence check
+    checkUsernameExists(username)
+      .then((exists) => {
+        if (exists) {
+          displayError('usernameError', 'Username already in use. Please choose a different one.');
+        } else {
+          // If username is available, proceed with form submission
+          signup(username, password, profileImage);
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking username existence:', error);
+      });
+  }
+});
+
+function signup(username, password, profileImage) {
   // Create a storage reference for the image
-  const storageRef = firebase.storage().ref('profile_images/' + username + '_' + profileImage);
+  const storageRef = firebase.storage().ref('profile_images/' + username + '_' + profileImage.name);
+
+  // Declare downloadURL variable here
+  let downloadURL;
 
   // Upload the image file to Firebase Storage
   const uploadTask = storageRef.put(profileImage);
-  const orginaltetx = singupbtn.innerHTML;
-  displayError('singupmsg', 'Signigup please wait.....');
+  const originalText = singupbtn.innerHTML;
 
-  changeToSVG(singupbtn);
+  displayError('singupmsg', 'Signing up, please wait...');
+   // Change button to loading state
+
   // Wait for the image upload to complete
   uploadTask.then((snapshot) => {
     // Get the download URL for the uploaded image
     return snapshot.ref.getDownloadURL();
-  }).then((downloadURL) => {
+  }).then((url) => {
+    // Save the download URL to the variable
+    downloadURL = url;
+
     // Save user information and image URL to the database
     return db.ref('user/' + username).set({
       username: username,
       password: password,
       profileImageURL: downloadURL, // Save the image URL to the database
       joined: formattedDate
-    }).then(() => {
-      // Update UI after successful signup
-      singup.style.display = 'none';
-      singin.style.display = 'none';
-      localStorage.setItem('event1', 'accountcontainer');
-
-      localStorage.setItem('storedUsername', username);
-      // Update the profile image tag with the profile image URL
-      localStorage.setItem('storedProfileImageURL', downloadURL);
-      localStorage.setItem('joineddate', formattedDate);
-      displayError('singupmsg', 'Signed up successfully.');
-
-      location.reload();
     });
+  }).then(() => {
+    // Update UI after successful signup
+    singup.style.display = 'none';
+    singin.style.display = 'none';
+    localStorage.setItem('event1', 'accountcontainer');
+
+    localStorage.setItem('storedUsername', username);
+    // Update the profile image tag with the profile image URL
+    localStorage.setItem('storedProfileImageURL', downloadURL);
+    localStorage.setItem('joineddate', formattedDate);
+    displayError('singupmsg', 'Signed up successfully.');
+    location.reload(); // Refresh the page or perform any other necessary actions
   }).catch((error) => {
     // Handle errors
-    revertToText(singupbtn, orginaltetx);
-    displayError('singupmsg', 'Error signing up.');
+    console.error('Error signing up:', error);
+    displayError('singupmsg', 'Error signing up. Please try again.');
+  }).finally(() => {
+    revertToText(singupbtn, originalText); // Revert button to original state
   });
-});
+}
+
+function clearErrors() {
+  // Clear any previous error messages
+  // Assuming you have functions to clear errors for each field
+  clearError('usernameError');
+  clearError('passwordError');
+  clearError('fileInputError');
+  clearError('singupmsg');
+}
+
+function clearError(id) {
+  const errorElement = document.getElementById(id);
+  if (errorElement) {
+    errorElement.textContent = '';
+  }
+}
+
+function displayError(id, message) {
+  const errorElement = document.getElementById(id);
+  if (errorElement) {
+    errorElement.textContent = message;
+  }
+}
+
+function changeToSVG(element) {
+  // Implement your logic to change button to loading state
+}
+
+function revertToText(element, originalText) {
+  // Implement your logic to revert button to original state
+}
+
 
 // Event listener for signing in
 const singinbtn = document.getElementById('singinbtn');
