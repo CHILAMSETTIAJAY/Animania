@@ -393,7 +393,7 @@ singinbtn.addEventListener('click', function(e) {
 displayname.innerHTML = localStorage.getItem('storedUsername') || 'Login';
 dp.src = localStorage.getItem('storedProfileImageURL') || './Images/my2dp.jpg';
 if(localStorage.getItem('storedUsername') != null) {
-  document.getElementById('logout').style.display = 'flex';
+  // document.getElementById('logout').style.display = 'flex';
   document.getElementById('mobile-menu').style.display = 'flex';
 
 }
