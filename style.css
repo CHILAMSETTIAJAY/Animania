@@ -11,7 +11,7 @@
 body{
   width: 100vw;
   height: auto;
-  background-color: #fafbfed1 !important;
+  background-color: #00000014 !important;
   overflow-x: hidden !important;
   color: black !important;
 }
@@ -25,7 +25,7 @@ a{
 .blue{
   width: 100vw;
   height: auto;
-  background-color: #44444c;
+  background-color: #000000;
 }
 .accountcontainer{
   position: fixed;
@@ -41,7 +41,7 @@ a{
 .account{
   min-height: 100%;
   width: 60%;
-  background-color:#13152100;
+  background-color:#00000000;
 
 }
 .profilepic,.info , .menu{
@@ -548,7 +548,7 @@ top: -2px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #ffffff;
+  background-color: #000000;
   padding: 3px 0px;
 }
 .mobilemenu-item{
@@ -558,6 +558,7 @@ top: -2px;
   align-items: center;
   padding: 6px 0px;
   font-size: 0.7rem;
+  color: white;
 }
 .mobilemenu-item:hover {
 color: #4caf50 ;
