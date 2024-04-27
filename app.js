@@ -457,3 +457,13 @@ document.getElementById("voiceicon").addEventListener("click", function() {
       }
   };
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const menuItem = document.querySelector('.mobilemenu-item');
+  menuItem.addEventListener('mouseover', function() {
+    // Change color to white after 1 second
+    setTimeout(function() {
+      menuItem.style.color = 'white';
+    }, 1000);
+  });
+});
