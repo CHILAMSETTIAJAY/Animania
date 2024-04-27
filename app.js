@@ -397,19 +397,7 @@ if(localStorage.getItem('storedUsername') != null) {
   document.getElementById('mobile-menu').style.display = 'flex';
 
 }
-document.getElementById('Contact').addEventListener('click', function(event) {
-  event.preventDefault();
 
-  // Define the email address and subject
-  const emailAddress = 'animania@example.com';
-  const subject = 'Inquiry';
-
-  // Construct the mailto URL
-  const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}`;
-
-  // Open the user's default email client
-  window.location.href = mailtoUrl;
-});
 
 const searchtext = document.getElementById('searchtext');
 
@@ -467,3 +455,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
   });
 });
+
+// document.getElementById('Contact').addEventListener('click', function(event) {
+//   event.preventDefault();
+
+//   // Define the email address and subject
+//   const emailAddress = 'animania@example.com';
+//   const subject = 'Inquiry';
+
+//   // Construct the mailto URL
+//   const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent(subject)}`;
+
+//   // Open the user's default email client
+//   window.location.href = mailtoUrl;
+// });
