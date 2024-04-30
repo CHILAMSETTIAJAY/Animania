@@ -1,5 +1,7 @@
 const fetchvalue = localStorage.getItem('lastClickedValue');
+console.log(fetchvalue);
 const searchtext =localStorage.getItem('searchtext');
+console.log(localStorage.getItem('storedUsername'));
 document.getElementById('featured-title').innerHTML=fetchvalue;
     // Your Firebase configuration
     const firebaseConfig = {
@@ -22,18 +24,16 @@ document.getElementById('featured-title').innerHTML=fetchvalue;
     // Reference to the folder where user's bookmarked images are stored
     const username = localStorage.getItem('storedUsername');
     imageswal = storage.ref().child(`wishlist/${username}`);
-  }
-  else if (fetchvalue === 'Downloads') {
-    // Reference to the folder where user's bookmarked images are stored
+} else if (fetchvalue === 'Downloads') {
+    // Reference to the folder where user's downloaded images are stored
     const username = localStorage.getItem('storedUsername');
     imageswal = storage.ref().child(`downloads/${username}`);
-  } 
-  if(fetchvalue === 'Explore'){
-    imageswal =storage.ref().child('AllWallpapers');
-  }else {
+} else if (fetchvalue === 'Explore') {
+    imageswal = storage.ref().child('AllWallpapers');
+} else {
     // Reference to the folder where your images are stored based on fetchvalue
     imageswal = storage.ref().child(fetchvalue);
-  }
+}
   
   // Get download URLs for all images in the folder
 imageswal.listAll().then((result) => {
