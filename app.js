@@ -1,3 +1,5 @@
+
+
 // Function to reload the page
 function reloadPage(event) {
   event.preventDefault(); // Prevent the default behavior (page reload)
