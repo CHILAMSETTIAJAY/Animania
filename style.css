@@ -14,6 +14,7 @@ body{
   background-color: #00000014 !important;
   overflow-x: hidden !important;
   color: black !important;
+  max-width: 480px;
 }
 a{
   text-decoration: none;
@@ -26,6 +27,7 @@ a{
   width: 100vw;
   height: auto;
   background-color: #000000;
+  max-width: 480px;
 }
 .accountcontainer{
   position: fixed;
@@ -541,6 +543,7 @@ top: -2px;
   display: none;
   align-items:end;
   justify-content: center;
+  max-width: 480px;
 }
 .mobilemenu{
   width: 100%;
