@@ -27,7 +27,10 @@ document.getElementById('featured-title').innerHTML=fetchvalue;
     // Reference to the folder where user's bookmarked images are stored
     const username = localStorage.getItem('storedUsername');
     imageswal = storage.ref().child(`downloads/${username}`);
-  } else {
+  } 
+  if(fetchvalue === 'Explore'){
+    imageswal =storage.ref().child('AllWallpapers');
+  }else {
     // Reference to the folder where your images are stored based on fetchvalue
     imageswal = storage.ref().child(fetchvalue);
   }

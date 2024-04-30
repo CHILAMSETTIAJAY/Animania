@@ -20,7 +20,7 @@ const app = firebase.initializeApp(firebaseConfig);
 // Reference to the storage service
 const storage = firebase.storage();
 
-const imagesRef = storage.ref().child('AllWallpapers');
+const imagesRef = storage.ref().child('TopWallpaper');
 
 localStorage.setItem('lastClickedValue', "on");
 

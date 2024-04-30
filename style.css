@@ -561,12 +561,14 @@ top: -2px;
   color: white;
 }
 .mobilemenu-item:hover {
-color: #4caf50 ;
+font-weight: 500;
 }
 .mobilemenu-item:hover svg{
-  fill: #4caf50 !important;
+  font-weight: 500;
+
 
 }
 svg:hover{
-  fill: #4caf50;
+  font-weight: 500;
+
 }
