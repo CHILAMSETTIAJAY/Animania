@@ -44,13 +44,13 @@ select {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #004aad;
     color: white;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #01459d;
 }
 
 .error{
