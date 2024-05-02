@@ -575,3 +575,21 @@ svg:hover{
   font-weight: 500;
 
 }
+.splash{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  z-index: 111;
+  opacity: 1;
+  transition: 1s;
+}
+.splashpic{
+  width: 55%;
+}
+#splash.fade{
+  opacity: 0;
+}
